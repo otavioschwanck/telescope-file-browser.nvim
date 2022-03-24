@@ -147,4 +147,18 @@ fb_utils.group_by_type = function(tbl)
   end)
 end
 
+--- Telescope Wrapper around vim.notify
+---@param funname string: name of the function that will be
+---@param opts table: opts.level string, opts.msg string
+fb_utils.notify = function(funname, opts)
+  local level = vim.log.levels[opts.level]
+  if not level then
+    error("Invalid error level", 2)
+  end
+
+  vim.notify(string.format("[file_browser.%s] %s", funname, opts.msg), level, {
+    title = "telescope-file-browser.nvim",
+  })
+end
+
 return fb_utils
